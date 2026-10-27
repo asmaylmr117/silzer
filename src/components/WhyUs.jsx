@@ -9,8 +9,7 @@ export default function WhyUs() {
   const { t } = useLanguage();
   return (
     <section id="why-us" className="section-anchor relative overflow-hidden bg-sizzler-gray-dark py-16 sm:py-20 lg:py-24">
-      <div className="pointer-events-none absolute -end-24 -top-24 h-72 w-72 rounded-full bg-sizzler-red/10" />
-      <div className="pointer-events-none absolute -start-16 bottom-0 h-64 w-64 rounded-full bg-sizzler-red/5" />
+     
       <div ref={ref} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={`mx-auto mb-11 max-w-3xl text-center sm:mb-14 ${isInView ? 'animate-fadeInUp' : 'opacity-0'}`}>
           <span className="section-eyebrow section-eyebrow-dark">{t.why.eyebrow}</span>
