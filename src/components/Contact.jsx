@@ -36,7 +36,7 @@ export default function Contact() {
             {contactInfo.map(({ icon: Icon, title, value, valueDirection, href, color }) => {
               const displayValue = valueDirection ? <bdi dir={valueDirection}>{value}</bdi> : value;
               const card = <><span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${color} text-white shadow-md`}><Icon size={21} /></span><span className="min-w-0"><span className="block text-xs font-semibold text-sizzler-gray-light">{title}</span><span className="mt-1 block break-words text-sm font-extrabold leading-6 text-sizzler-gray-dark">{displayValue}</span></span></>;
-              return href ? <a key={title} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} className="contact-info-card">{card}</a> : <div key={title} className="contact-info-card">{card}</div>;
+              return href ? <a key={title} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} data-spot className="contact-info-card">{card}</a> : <div key={title} data-spot className="contact-info-card">{card}</div>;
             })}
             <a href={contactDetails.whatsappHref} target="_blank" rel="noreferrer" className="whatsapp-cta sm:col-span-2"><MessageCircle size={20} />{t.contact.whatsapp}</a>
           </div>

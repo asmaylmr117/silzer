@@ -7,6 +7,7 @@ import Products from './components/Products';
 import WhyUs from './components/WhyUs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { CursorGlow, Marquee, PointerFx, Preloader, ScrollProgress, ScrollTop } from './components/Effects';
 import { LanguageProvider } from './i18n';
 import { useLanguage } from './useLanguage';
 import { siteRoutes } from './data/siteData';
@@ -28,6 +29,7 @@ function RouteScroll() {
 function HomePage() {
   return <>
     <Hero />
+    <Marquee />
     <About />
     <Products />
     <WhyUs />
@@ -56,9 +58,13 @@ function Site() {
   const location = useLocation();
   return (
     <div className={`site-shell min-h-screen bg-white font-['Somar','Somar_Sans',sans-serif] ${location.pathname === '/' ? '' : 'inner-page'}`} dir={direction} lang={language}>
+      <Preloader />
+      <ScrollProgress />
+      <CursorGlow />
+      <PointerFx />
       <Navbar />
       <RouteScroll />
-      <main>
+      <main key={location.pathname} className="page-enter">
         <Routes>
           <Route path={siteRoutes.home} element={<HomePage />} />
           <Route path={siteRoutes.products} element={<ProductsPage />} />
@@ -67,6 +73,7 @@ function Site() {
         </Routes>
       </main>
       <Footer />
+      <ScrollTop />
     </div>
   );
 }

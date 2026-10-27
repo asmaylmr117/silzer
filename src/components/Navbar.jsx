@@ -8,6 +8,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 30);
+      setHidden(y > last && y > 420);
+      last = y;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const links = navigationLinks.map(({ labelKey, to }) => ({ name: t.nav[labelKey], to }));
   const closeMenu = () => setIsOpen(false);
@@ -38,7 +53,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="site-nav absolute inset-x-0 top-0 z-50">
+      <header className={`site-nav fixed inset-x-0 top-0 z-50 ${scrolled ? 'is-scrolled' : ''} ${hidden && !isOpen ? 'is-hidden' : ''}`}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-3 sm:px-6 lg:px-8" aria-label={t.nav.ariaLabel}>
           <Link to={logoHomeLink} onClick={closeMenu} className="header-logo-frame shrink-0" aria-label={siteAssets.brandName}>
             <img src={siteAssets.logo} alt={siteAssets.brandName} className="header-logo" />

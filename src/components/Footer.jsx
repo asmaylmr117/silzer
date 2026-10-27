@@ -1,10 +1,6 @@
-import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="bg-sizzler-bg-dark text-white relative">
       {/* Main Footer */}
@@ -117,14 +113,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Scroll to Top */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-8 left-8 z-40 bg-sizzler-red hover:bg-sizzler-red-dark text-white w-12 h-12 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110"
-        aria-label="Scroll to top"
-      >
-        <ArrowUp size={20} />
-      </button>
     </footer>
   );
 }

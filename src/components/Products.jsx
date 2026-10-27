@@ -8,6 +8,11 @@ import { allProductsCategoryId, contactDetails, productCatalog, productCategorie
 export default function Products() {
   const [activeCategory, setActiveCategory] = useState(allProductsCategoryId);
   const [selectedId, setSelectedId] = useState(null);
+  const [closing, setClosing] = useState(false);
+  const closeModal = () => {
+    setClosing(true);
+    setTimeout(() => { setSelectedId(null); setClosing(false); }, 220);
+  };
   const [ref, isInView] = useInView({ threshold: 0, rootMargin: '100px' });
   const location = useLocation();
   const { language, t } = useLanguage();
@@ -84,7 +89,7 @@ export default function Products() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6">
+        <div key={activeCategory} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6">
           {visibleProducts.map((product, index) => (
             <article
               key={product.id}
@@ -145,9 +150,9 @@ export default function Products() {
       {/* Product Quick View Modal - Compact on small screens */}
       {selectedProduct && (
         <div
-          className="product-modal fixed inset-0 z-[80] flex items-center justify-center bg-black/65 p-3 backdrop-blur-sm sm:p-6"
+          className={`product-modal ${closing ? 'closing' : ''} fixed inset-0 z-[80] flex items-center justify-center bg-black/65 p-3 backdrop-blur-sm sm:p-6`}
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setSelectedId(null);
+            if (event.target === event.currentTarget) closeModal();
           }}
         >
           <article
@@ -159,7 +164,7 @@ export default function Products() {
             {/* Close Button */}
             <button
               type="button"
-              onClick={() => setSelectedId(null)}
+              onClick={closeModal}
               className="modal-close absolute top-2.5 md:top-3 z-10 grid h-8 w-8 md:h-10 md:w-10 place-items-center rounded-full bg-white shadow-md transition hover:bg-sizzler-red hover:text-white cursor-pointer"
               aria-label={t.products.close}
             >
