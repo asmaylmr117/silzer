@@ -1,4 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;600;700;800;900&display=swap');
+
+/* Somar Upright (Non-Italic) Font Definitions */
+@font-face {
+  font-family: 'Somar';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Somar Sans';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('https://fonts.cdnfonts.com/s/90887/SomarSans-ExtraBold.woff') format('woff');
+}
+
 @import "tailwindcss";
 
 @theme {
@@ -11,13 +77,15 @@
   --color-sizzler-silver: #c0c0c0;
   --color-sizzler-bg: #f7f7f7;
   --color-sizzler-bg-dark: #171719;
-  --font-family-arabic: 'Tajawal', 'Cairo', sans-serif;
+  --font-family-arabic: 'Somar', 'Somar Sans', 'Cairo', 'Tajawal', sans-serif;
 }
 
 :root {
-  font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
+  font-family: 'Somar', 'Somar Sans', 'Cairo', 'Tajawal', Arial, sans-serif;
   color: #252525;
   background: #fff;
+  font-style: normal;
+  font-weight: 600; /* SemiBold */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,10 +96,25 @@
 
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after {
+  box-sizing: border-box;
+  font-style: normal;
+}
 
 html, body, #root { width: 100%; min-width: 320px; min-height: 100%; margin: 0; }
-body { overflow-x: hidden; font-family: 'Tajawal', 'Cairo', Arial, sans-serif; }
+body {
+  overflow-x: hidden;
+  font-family: 'Somar', 'Somar Sans', 'Cairo', 'Tajawal', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 600; /* SemiBold */
+}
+
+/* Headings using Somar Bold */
+h1, h2, h3, h4, h5, h6, .section-title, .font-black, .font-extrabold {
+  font-family: 'Somar', 'Somar Sans', sans-serif;
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
 body.modal-open { overflow: hidden; }
 button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -139,7 +222,7 @@ a.contact-info-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px
   .hero-logo { width: min(220px, 68vw); height: 58px; }
   .hero-image { object-position: center 55%; }
   .hero-shade { background: linear-gradient(180deg, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 58%) 45%, rgb(0 0 0 / 88%) 100%); }
-  .product-modal-image { height: min(52dvh, 440px); }
+  .product-modal-image { height: 180px; min-height: 140px; }
   .contact-map { height: 260px; }
   .scroll-top { inset-inline-start: 14px; bottom: 14px; }
 }

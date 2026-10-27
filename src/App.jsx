@@ -55,7 +55,7 @@ function Site() {
   const { language, direction } = useLanguage();
   const location = useLocation();
   return (
-    <div className={`site-shell min-h-screen bg-white font-[Tajawal] ${location.pathname === '/' ? '' : 'inner-page'}`} dir={direction} lang={language}>
+    <div className={`site-shell min-h-screen bg-white font-['Somar','Somar_Sans',sans-serif] ${location.pathname === '/' ? '' : 'inner-page'}`} dir={direction} lang={language}>
       <Navbar />
       <RouteScroll />
       <main>
