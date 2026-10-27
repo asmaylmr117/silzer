@@ -6,7 +6,7 @@ import { siteAssets } from '../data/siteData';
 const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-/* شاشة تحميل بتظهر مرة واحدة في كل جلسة، وبعدها بتبدأ أنيميشن الهيرو */
+
 export function Preloader() {
   const [phase, setPhase] = useState(() => {
     try { return sessionStorage.getItem('sz-intro') || reduce() ? 'done' : 'show'; } catch { return 'show'; }
@@ -16,9 +16,9 @@ export function Preloader() {
     if (phase === 'done') { root.classList.add('app-ready'); document.body.classList.remove('modal-open'); return undefined; }
     document.body.classList.add('modal-open');
     const timers = [
-      setTimeout(() => setPhase('out'), 1500),
-      setTimeout(() => root.classList.add('app-ready'), 1750),
-      setTimeout(() => { try { sessionStorage.setItem('sz-intro', '1'); } catch { /* ignore */ } setPhase('done'); }, 2500),
+      setTimeout(() => setPhase('out'), 800),
+      setTimeout(() => root.classList.add('app-ready'), 1000),
+      setTimeout(() => { try { sessionStorage.setItem('sz-intro', '1'); } catch { /* ignore */ } setPhase('done'); }, 1600),
     ];
     return () => { timers.forEach(clearTimeout); document.body.classList.remove('modal-open'); };
   }, [phase === 'done']); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,7 +33,7 @@ export function Preloader() {
   );
 }
 
-/* شريط تقدم السكرول + يحدّث --p لاستخدامه في زر الرجوع للأعلى */
+
 export function ScrollProgress() {
   useEffect(() => {
     const root = document.documentElement;
@@ -41,7 +41,9 @@ export function ScrollProgress() {
     const update = () => {
       raf = 0;
       const max = root.scrollHeight - window.innerHeight;
-      root.style.setProperty('--p', max > 0 ? Math.min(window.scrollY / max, 1) : 0);
+      const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      document.querySelector('.scroll-progress')?.style.setProperty('--p', p);
+      document.querySelector('.scroll-top-btn')?.style.setProperty('--p', p);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
@@ -52,27 +54,26 @@ export function ScrollProgress() {
   return <div className="scroll-progress" aria-hidden="true" />;
 }
 
-/* توهج أحمر ناعم بيتبع الماوس (ديسكتوب فقط) */
+
 export function CursorGlow() {
   const ref = useRef(null);
   useEffect(() => {
     if (!fine() || reduce()) return undefined;
     const el = ref.current;
     let x = window.innerWidth / 2, y = window.innerHeight / 2, cx = x, cy = y, raf = 0;
-    const move = (e) => { x = e.clientX; y = e.clientY; el.style.opacity = 1; };
     const tick = () => {
-      cx += (x - cx) * 0.12; cy += (y - cy) * 0.12;
+      cx += (x - cx) * 0.15; cy += (y - cy) * 0.15;
       el.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-      raf = requestAnimationFrame(tick);
+      raf = Math.abs(x - cx) + Math.abs(y - cy) > 0.5 ? requestAnimationFrame(tick) : 0;
     };
+    const move = (e) => { x = e.clientX; y = e.clientY; el.style.opacity = 1; if (!raf) raf = requestAnimationFrame(tick); };
     window.addEventListener('pointermove', move, { passive: true });
-    tick();
     return () => { window.removeEventListener('pointermove', move); cancelAnimationFrame(raf); };
   }, []);
   return <div ref={ref} className="cursor-glow" aria-hidden="true" />;
 }
 
-/* مستمع واحد للصفحة: [data-spot] إضاءة تتبع الماوس، [data-tilt] ميلان 3D */
+
 export function PointerFx() {
   useEffect(() => {
     if (!fine()) return undefined;
@@ -110,7 +111,7 @@ export function PointerFx() {
   return null;
 }
 
-/* شريط متحرك بين الهيرو والأقسام */
+
 export function Marquee() {
   const { language } = useLanguage();
   const items = language === 'ar'
@@ -124,8 +125,8 @@ export function Marquee() {
   return <div className="marquee" aria-hidden="true"><div className="marquee-track">{set('a')}{set('b')}</div></div>;
 }
 
-/* جزيئات حمراء طايرة في خلفية الهيرو */
-export function Particles({ count = 16 }) {
+
+export function Particles({ count = 7 }) {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       {Array.from({ length: count }, (_, i) => {
@@ -136,7 +137,7 @@ export function Particles({ count = 16 }) {
   );
 }
 
-/* زر الرجوع للأعلى مع حلقة تقدم */
+
 export function ScrollTop() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -147,7 +148,6 @@ export function ScrollTop() {
   }, []);
   return (
     <button type="button" aria-label="Scroll to top" className={`scroll-top-btn ${show ? 'show' : ''}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-      <svg viewBox="0 0 48 48" className="ring" aria-hidden="true"><circle className="t" cx="24" cy="24" r="22" /><circle className="v" cx="24" cy="24" r="22" /></svg>
       <ArrowUp size={20} />
     </button>
   );
