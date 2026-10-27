@@ -9,7 +9,7 @@ export default function About() {
   const { t } = useLanguage();
   return (
     <section id="about" className="section-anchor relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
-      <div className="pointer-events-none absolute -start-24 -top-24 h-64 w-64 rounded-full bg-sizzler-red/5" />
+     
       <div ref={ref} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={`mx-auto mb-12 max-w-3xl text-center sm:mb-14 ${isInView ? 'animate-fadeInUp' : 'opacity-0'}`}>
           <span className="section-eyebrow">{t.about.eyebrow}</span>
