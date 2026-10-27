@@ -62,7 +62,7 @@ export default function Hero() {
               </Link>
 
               <a
-                href="#contact"
+                href="#about"
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-7 py-3.5 rounded-full text-sm sm:text-base transition-colors backdrop-blur-xs"
               >
                 {t.hero.secondary}
