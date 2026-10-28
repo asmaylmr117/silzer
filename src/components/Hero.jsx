@@ -54,10 +54,10 @@ export default function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="hero-in d5 pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="hero-in d5 pt-2 flex flex-nowrap sm:flex-wrap items-center gap-2 sm:gap-4">
               <Link
                 to={siteRoutes.products}
-                className="shine bg-red-600 hover:bg-red-700 text-white font-extrabold px-7 py-3.5 rounded-full text-sm sm:text-base transition-all duration-300 hover:scale-105 shadow-lg shadow-red-600/30 flex items-center gap-2"
+                className="shine bg-red-600 hover:bg-red-700 text-white font-extrabold px-3.5 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-base whitespace-nowrap transition-all duration-300 hover:scale-105 shadow-lg shadow-red-600/30 flex items-center gap-2"
               >
                 <span>{t.hero.primary}</span>
                 <ArrowIcon size={18} />
@@ -65,7 +65,7 @@ export default function Hero() {
 
               <a
                 href="#about"
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-7 py-3.5 rounded-full text-sm sm:text-base transition-colors backdrop-blur-xs"
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-3.5 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-base whitespace-nowrap transition-colors backdrop-blur-xs"
               >
                 {t.hero.secondary}
               </a>
@@ -74,7 +74,7 @@ export default function Hero() {
                 href={contactDetails.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pulse-ring bg-emerald-600/90 hover:bg-emerald-600 text-white font-bold p-3.5 rounded-full transition-transform hover:scale-105 shadow-md"
+                className="pulse-ring bg-emerald-600/90 hover:bg-emerald-600 text-white font-bold p-3 sm:p-3.5 shrink-0 rounded-full transition-transform hover:scale-105 shadow-md"
                 aria-label="WhatsApp"
                 title="WhatsApp"
               >
