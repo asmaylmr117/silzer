@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '../useLanguage';
+import { navigationLinks } from '../data/siteData';
 
 export default function Footer() {
+  const { language, t } = useLanguage();
   return (
     <footer className="bg-sizzler-bg-dark text-white relative">
       {/* Main Footer */}
@@ -16,8 +20,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-400 leading-relaxed max-w-md mb-6">
-              سزلر... أجهزة أقوى و أوفر. نحن ملتزمون بتقديم أفضل الأجهزة الكهربائية المنزلية
-              بأعلى جودة وأنسب الأسعار في الأردن. راحتك هي أولويتنا.
+              {t.footer.summary}
             </p>
             <div className="flex gap-4">
               <a
@@ -50,27 +53,17 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-bold mb-6 text-white">روابط سريعة</h4>
+            <h4 className="text-lg font-bold mb-6 text-white">{t.footer.links}</h4>
             <ul className="space-y-3">
-              {[
-                { name: 'الرئيسية', href: '#hero' },
-                { name: 'من نحن', href: '#about' },
-                { name: 'منتجاتنا', href: '#products' },
-                { name: 'لماذا سزلر؟', href: '#why-us' },
-                { name: 'تواصل معنا', href: '#contact' },
-              ].map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                    }}
+              {navigationLinks.map(({ labelKey, to }) => (
+                <li key={labelKey}>
+                  <Link
+                    to={to}
                     className="text-gray-400 hover:text-sizzler-red transition-colors duration-200 flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 bg-sizzler-red rounded-full" />
-                    {link.name}
-                  </a>
+                    {t.nav[labelKey]}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -78,11 +71,11 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-6 text-white">معلومات التواصل</h4>
+            <h4 className="text-lg font-bold mb-6 text-white">{t.footer.contact}</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin size={20} className="text-sizzler-red flex-shrink-0 mt-1" />
-                <span>عمّان، الأردن</span>
+                <span>{language === 'ar' ? 'عمّان، الأردن' : 'Amman, Jordan'}</span>
               </li>
               <li>
                 <a href="tel:0770034042" className="flex items-start gap-3 text-gray-400 hover:text-sizzler-red transition-colors">
@@ -105,10 +98,10 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Sizzler. جميع الحقوق محفوظة.
+            © {new Date().getFullYear()} Sizzler. {t.footer.copyright}
           </p>
           <p className="text-gray-500 text-sm">
-            سزلر... أجهزة أقوى و أوفر 🔴
+            {language === 'ar' ? 'سزلر... أجهزة أقوى و أوفر' : 'Sizzler... Stronger & Bigger Savings'} 🔴
           </p>
         </div>
       </div>
